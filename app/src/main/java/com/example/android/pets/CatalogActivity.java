@@ -117,7 +117,9 @@ public class CatalogActivity extends AppCompatActivity {
         String[] projection = {
                 PetContract.PetEntry._ID,
                 PetContract.PetEntry.COLUMN_PET_NAME,
-                PetContract.PetEntry.COLUMN_PET_BREED
+                PetContract.PetEntry.COLUMN_PET_BREED,
+                PetContract.PetEntry.COLUMN_PET_GENDER,
+                PetContract.PetEntry.COLUMN_PET_WEIGHT
         };
 
         //Select 'Where' part of Query
@@ -142,18 +144,31 @@ public class CatalogActivity extends AppCompatActivity {
 
             displayView.setText("Number of rows in pets database table: " + cursor.getCount() + "pets.\n\n");
             displayView.append(PetContract.PetEntry._ID + " - " +
-                    PetContract.PetEntry.COLUMN_PET_NAME + "\n");
+                    PetContract.PetEntry.COLUMN_PET_NAME + " - " +
+                    PetContract.PetEntry.COLUMN_PET_BREED + " - " +
+                    PetContract.PetEntry.COLUMN_PET_GENDER + " - " +
+                    PetContract.PetEntry.COLUMN_PET_WEIGHT + "\n");
 
             // Figure out the Index of each column
             int idColumnIndex = cursor.getColumnIndex(PetContract.PetEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_NAME);
+            int breedColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_BREED);
+            int genderColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_GENDER);
+            int weightColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_WEIGHT);
 
             while (cursor.moveToNext()){
                int currentId = cursor.getInt(idColumnIndex);
                String currentName = cursor.getString(nameColumnIndex);
+                String currentBreed = cursor.getString(breedColumnIndex);
+                int currentGender = cursor.getInt(genderColumnIndex);
+                int currentWeight = cursor.getInt(weightColumnIndex);
+
 
                displayView.append(("\n" + currentId + " - " +
-                       currentName));
+                       currentName + " - " +
+                       currentBreed + " - " +
+                       currentGender + " - " +
+                       currentWeight));
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
