@@ -123,22 +123,38 @@ public class CatalogActivity extends AppCompatActivity {
         //Select 'Where' part of Query
         String selection = PetContract.PetEntry.COLUMN_PET_GENDER + "=?";
         // Specify argument in placeholder order
-        String[] selectionArgs = new String[] {String.valueOf(PetContract.PetEntry.GENDER_FEMALE)};
+        String[] selectionArgs = new String[] {String.valueOf(PetContract.PetEntry.GENDER_MALE)};
 
         Cursor cursor = db.query(
                 PetContract.PetEntry.TABLE_NAME,
-                null,
-                null,
-                null,
+                projection,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 null);
 
+        TextView displayView = (TextView) findViewById(R.id.text_view_pet);
+
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
             // pets table in the database).
-            TextView displayView = (TextView) findViewById(R.id.text_view_pet);
-            displayView.setText("Number of rows in pets database table: " + cursor.getCount());
+
+            displayView.setText("Number of rows in pets database table: " + cursor.getCount() + "pets.\n\n");
+            displayView.append(PetContract.PetEntry._ID + " - " +
+                    PetContract.PetEntry.COLUMN_PET_NAME + "\n");
+
+            // Figure out the Index of each column
+            int idColumnIndex = cursor.getColumnIndex(PetContract.PetEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_NAME);
+
+            while (cursor.moveToNext()){
+               int currentId = cursor.getInt(idColumnIndex);
+               String currentName = cursor.getString(nameColumnIndex);
+
+               displayView.append(("\n" + currentId + " - " +
+                       currentName));
+            }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
