@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class PetProvider extends ContentProvider {
         // Make sure the variable is a global variable, so it can be referenced from other
         // ContentProvider methods.
         mPetDbHelper = new PetDbHelper(getContext());
+
         return true;
     }
 
@@ -47,7 +49,23 @@ public class PetProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
-        return null;
+
+        SQLiteDatabase db = mPetDbHelper.getReadableDatabase();
+        Cursor cursor;
+        int match = sUriMatcher.match(uri);
+
+        switch (match){
+            case PETS:
+                // TODO:
+                break;
+            case PET_ID:
+                // TODO:
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot query unknown URI " + uri);
+        }
+
+        return cursor;
     }
 
     /**
