@@ -22,7 +22,9 @@ This app displays a list of pets and their related data that the user inputs. Th
 - Database Connection
 #### Content Providers
 - Use of Content Providers
-- 
+- Content Providers Operations
+- URI
+- URI Matcher
 
 How to use this repository
 --------------
