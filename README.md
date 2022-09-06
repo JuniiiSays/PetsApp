@@ -13,12 +13,16 @@ This app displays a list of pets and their related data that the user inputs. Th
 </p>
 
 ## Application Features & Implements
+#### Using a Database in ANdroid App
 - Create a DB
 - Identify Schema
 - Contract Class
 - Contract creation for the DB
 - SQLiteOpenHelper
 - Database Connection
+#### Content Providers
+- Use of Content Providers
+- 
 
 How to use this repository
 --------------
