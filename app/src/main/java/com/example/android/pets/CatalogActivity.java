@@ -31,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Displays list of pets that were entered and stored in the app.
@@ -99,7 +100,13 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(PetContract.PetEntry.COLUMN_PET_GENDER, PetContract.PetEntry.GENDER_MALE);
         values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, 7);
 
-        Uri uri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
+        Uri newUri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
+
+        if (newUri == null){
+            Toast.makeText(this, getString(R.string.editor_insert_pet_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.editor_insert_pet_successful) , Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -119,20 +126,6 @@ public class CatalogActivity extends AppCompatActivity {
                 PetContract.PetEntry.COLUMN_PET_GENDER,
                 PetContract.PetEntry.COLUMN_PET_WEIGHT
         };
-
-        /*//Select 'Where' part of Query
-        String selection = PetContract.PetEntry.COLUMN_PET_GENDER + "=?";
-        // Specify argument in placeholder order
-        String[] selectionArgs = new String[] {String.valueOf(PetContract.PetEntry.GENDER_MALE)};
-
-        Cursor cursor = db.query(
-                PetContract.PetEntry.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null);*/
 
         Cursor cursor = getContentResolver().query(PetContract.PetEntry.CONTENT_URI, projection, null, null, null);
 
