@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.android.pets.data.PetContract;
@@ -91,15 +92,15 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void insertPet(){
-        //Get the Database in Writeable mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
-        values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Toto");
+        values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Nain");
         values.put(PetContract.PetEntry.COLUMN_PET_BREED, "Terrier");
         values.put(PetContract.PetEntry.COLUMN_PET_GENDER, PetContract.PetEntry.GENDER_MALE);
         values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, 7);
 
-        long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, values);
+        Uri uri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
+
     }
 
     /**
@@ -107,9 +108,6 @@ public class CatalogActivity extends AppCompatActivity {
      * the pets database.
      */
     private void displayDatabaseInfo() {
-
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Perform this raw SQL query "SELECT * FROM pets"
         // to get a Cursor that contains all rows from the pets table.
@@ -122,7 +120,7 @@ public class CatalogActivity extends AppCompatActivity {
                 PetContract.PetEntry.COLUMN_PET_WEIGHT
         };
 
-        //Select 'Where' part of Query
+        /*//Select 'Where' part of Query
         String selection = PetContract.PetEntry.COLUMN_PET_GENDER + "=?";
         // Specify argument in placeholder order
         String[] selectionArgs = new String[] {String.valueOf(PetContract.PetEntry.GENDER_MALE)};
@@ -134,7 +132,9 @@ public class CatalogActivity extends AppCompatActivity {
                 selectionArgs,
                 null,
                 null,
-                null);
+                null);*/
+
+        Cursor cursor = getContentResolver().query(PetContract.PetEntry.CONTENT_URI, projection, null, null, null);
 
         TextView displayView = (TextView) findViewById(R.id.text_view_pet);
 
