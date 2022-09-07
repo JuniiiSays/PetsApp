@@ -30,16 +30,18 @@ public final class PetContract {
         public static final int GENDER_MALE = 1;
         public static final int GENDER_FEMALE = 2;
 
+        /**
+         * Returns whether or not the given gender is GENDER_UNKNOWN, GENDER_MALE,
+         * or GENDER_FEMALE.
+         */
+        public static boolean isValidGender(int gender) {
+            if (gender == PetEntry.GENDER_UNKNOWN || gender == PetEntry.GENDER_MALE || gender == PetEntry.GENDER_FEMALE) {
+                return true;
+            }
+            return false;
+        }
+
     }
 
-    /**
-     * Returns whether or not the given gender is GENDER_UNKNOWN, GENDER_MALE,
-     * or GENDER_FEMALE.
-     */
-    public static boolean isValidGender(int gender) {
-        if (gender == PetEntry.GENDER_UNKNOWN || gender == PetEntry.GENDER_MALE || gender == PetEntry.GENDER_FEMALE) {
-            return true;
-        }
-        return false;
-    }
+
 }
