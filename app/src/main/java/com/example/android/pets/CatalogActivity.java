@@ -57,8 +57,14 @@ public class CatalogActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mDbHelper = new PetDbHelper(this);
-        displayDatabaseInfo();
+
+        // Find the ListView which will be populated with the pet data
+        ListView petListView = (ListView) findViewById(R.id.list);
+
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        petListView.setEmptyView(emptyView);
+
     }
 
     @Override
@@ -112,7 +118,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         Cursor cursor = getContentResolver().query(PetContract.PetEntry.CONTENT_URI, projection, null, null, null);
 
-        ListView listView = (ListView) findViewById(R.id.list_view);
+        ListView listView = (ListView) findViewById(R.id.list);
         PetCursorAdapter petCursorAdapter = new PetCursorAdapter(this, cursor);
         listView.setAdapter(petCursorAdapter);
     }
@@ -120,8 +126,8 @@ public class CatalogActivity extends AppCompatActivity {
     private void insertPet(){
 
         ContentValues values = new ContentValues();
-        values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Nain");
-        values.put(PetContract.PetEntry.COLUMN_PET_BREED, "Terrier");
+        values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Tommy");
+        values.put(PetContract.PetEntry.COLUMN_PET_BREED, "Pomeranian");
         values.put(PetContract.PetEntry.COLUMN_PET_GENDER, PetContract.PetEntry.GENDER_MALE);
         values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, 7);
 
