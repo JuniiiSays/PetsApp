@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,24 +93,6 @@ public class CatalogActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void insertPet(){
-
-        ContentValues values = new ContentValues();
-        values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Nain");
-        values.put(PetContract.PetEntry.COLUMN_PET_BREED, "Terrier");
-        values.put(PetContract.PetEntry.COLUMN_PET_GENDER, PetContract.PetEntry.GENDER_MALE);
-        values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, 7);
-
-        Uri newUri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
-
-        if (newUri == null){
-            Toast.makeText(this, getString(R.string.editor_insert_pet_failed), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getString(R.string.editor_insert_pet_successful) , Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
     /**
      * Temporary helper method to display information in the onscreen TextView about the state of
      * the pets database.
@@ -129,45 +112,27 @@ public class CatalogActivity extends AppCompatActivity {
 
         Cursor cursor = getContentResolver().query(PetContract.PetEntry.CONTENT_URI, projection, null, null, null);
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_pet);
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        PetCursorAdapter petCursorAdapter = new PetCursorAdapter(this, cursor);
+        listView.setAdapter(petCursorAdapter);
+    }
 
-        try {
-            // Display the number of rows in the Cursor (which reflects the number of rows in the
-            // pets table in the database).
+    private void insertPet(){
 
-            displayView.setText("Number of rows in pets database table: " + cursor.getCount() + "pets.\n\n");
-            displayView.append(PetContract.PetEntry._ID + " - " +
-                    PetContract.PetEntry.COLUMN_PET_NAME + " - " +
-                    PetContract.PetEntry.COLUMN_PET_BREED + " - " +
-                    PetContract.PetEntry.COLUMN_PET_GENDER + " - " +
-                    PetContract.PetEntry.COLUMN_PET_WEIGHT + "\n");
+        ContentValues values = new ContentValues();
+        values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Nain");
+        values.put(PetContract.PetEntry.COLUMN_PET_BREED, "Terrier");
+        values.put(PetContract.PetEntry.COLUMN_PET_GENDER, PetContract.PetEntry.GENDER_MALE);
+        values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, 7);
 
-            // Figure out the Index of each column
-            int idColumnIndex = cursor.getColumnIndex(PetContract.PetEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_NAME);
-            int breedColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_BREED);
-            int genderColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_GENDER);
-            int weightColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_WEIGHT);
+        Uri newUri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
 
-            while (cursor.moveToNext()){
-               int currentId = cursor.getInt(idColumnIndex);
-               String currentName = cursor.getString(nameColumnIndex);
-                String currentBreed = cursor.getString(breedColumnIndex);
-                int currentGender = cursor.getInt(genderColumnIndex);
-                int currentWeight = cursor.getInt(weightColumnIndex);
-
-
-               displayView.append(("\n" + currentId + " - " +
-                       currentName + " - " +
-                       currentBreed + " - " +
-                       currentGender + " - " +
-                       currentWeight));
-            }
-        } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
+        if (newUri == null){
+            Toast.makeText(this, getString(R.string.editor_insert_pet_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.editor_insert_pet_successful) , Toast.LENGTH_SHORT).show();
         }
+
     }
 
 }
