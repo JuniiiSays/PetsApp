@@ -15,6 +15,7 @@
  */
 package com.example.android.pets;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,6 +38,7 @@ import androidx.loader.content.Loader;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +81,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new PetCursorAdapter(this, null);
         petListView.setAdapter(mCursorAdapter);
+
+        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                Uri currentUri = ContentUris.withAppendedId(PetContract.PetEntry.CONTENT_URI, id);
+                intent.setData(currentUri);
+                startActivity(intent);
+            }
+        });
 
         getSupportLoaderManager().initLoader(PET_LOADER, null, this);
 
