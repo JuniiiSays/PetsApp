@@ -44,7 +44,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- *
  * Displays list of pets that were entered and stored in the app.
  */
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
