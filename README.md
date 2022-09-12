@@ -7,6 +7,10 @@ Main Screen             |  Add New Pet     |   Main Screen Menu
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://user-images.githubusercontent.com/45339238/189655170-6b8c2600-d12c-4e2a-9437-a9d91f0f3ee9.png)  |  ![](https://user-images.githubusercontent.com/45339238/189655405-c9e382ed-7001-4e40-9b69-b1842f2b8c8a.png)  |  ![](https://user-images.githubusercontent.com/45339238/189655532-2ffb4d9c-ab68-49c5-893b-bef4d8ef21f6.png)
 
+Edit Pet Screen             |  Edit Pet Menu     |   Conformation Dialogue
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/45339238/189656298-097f9e44-3478-4dfd-94f5-283f4ffcfb64.png)  |  ![](https://user-images.githubusercontent.com/45339238/189656325-74494679-5b9e-40ee-b631-cfccd4cf6daa.png)  |  ![](https://user-images.githubusercontent.com/45339238/189656404-a69b08e8-72d2-43d8-a989-fa6cd3a161f3.png)
+
 ## Application Features & Implements
 #### Using a Database in ANdroid App
 - Create a DB
