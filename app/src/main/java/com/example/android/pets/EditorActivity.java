@@ -419,5 +419,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private void deletePet() {
         // TODO: Implement this method
+        int deletedRow = getContentResolver().delete(mCurrentPetUri, null, null);
+
+        finish();
     }
 }
