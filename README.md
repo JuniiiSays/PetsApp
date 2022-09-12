@@ -2,15 +2,10 @@
 This app displays a list of pets and their related data that the user inputs. Then we are saving this inforamtion into the SQLite database.
 
 ## Screenshots
-<p float="left">
-  <img src="#" width="300" />
-  <img src="#" width="300" /> 
-  
-</p>
-<p float="left">
-<img src="#" width="300" />
-<img src="#" width="300" />
-</p>
+
+Main Screen             |  Add New Pet     |   Main Screen Menu
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/45339238/189655170-6b8c2600-d12c-4e2a-9437-a9d91f0f3ee9.png)  |  ![](https://user-images.githubusercontent.com/45339238/189655405-c9e382ed-7001-4e40-9b69-b1842f2b8c8a.png)  |  ![](https://user-images.githubusercontent.com/45339238/189655532-2ffb4d9c-ab68-49c5-893b-bef4d8ef21f6.png)
 
 ## Application Features & Implements
 #### Using a Database in ANdroid App
